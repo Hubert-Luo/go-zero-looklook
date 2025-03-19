@@ -7,7 +7,7 @@ services:
   #jaeger链路追踪 — Jaeger for tracing
   jaeger:
     image: jaegertracing/all-in-one:1.63.0
-    container_name: gozero_jaeger
+    container_name: looklook_jaeger
     restart: always
     ports:
       - "5775:5775/udp"
@@ -29,7 +29,7 @@ services:
   #prometheus监控 — Prometheus for monitoring
   prometheus:
     image: prom/prometheus:v2.28.1
-    container_name: gozero_prometheus
+    container_name: looklook_prometheus
     environment:
       # 时区上海 - Time zone Shanghai (Change if needed)
       TZ: Asia/Shanghai
@@ -49,7 +49,7 @@ services:
   #查看prometheus监控数据 - Grafana to view Prometheus monitoring data
   grafana:
     image: grafana/grafana:8.0.6
-    container_name: gozero_grafana
+    container_name: looklook_grafana
     hostname: grafana
     user: root
     environment:
@@ -64,7 +64,7 @@ services:
         - looklook_net
 
   elasticsearch:
-    container_name: gozero_elasticsearch
+    container_name: looklook_elasticsearch
     image: elasticsearch:8.12.2
     restart: unless-stopped
     environment:
@@ -82,7 +82,7 @@ services:
       - looklook_net
 
   kibana:
-    container_name: gozero_kibana
+    container_name: looklook_kibana
     image: kibana:8.12.2
     restart: unless-stopped
     environment:
@@ -100,7 +100,7 @@ services:
   #消费kafka中filebeat收集的数据输出到es - The data output collected by FileBeat in Kafka is output to ES
   go-stash:
     image: kevinwan/go-stash:1.1.1
-    container_name: gozero_go-stash
+    container_name: looklook_go-stash
     environment:
       # 时区上海 - Time zone Shanghai (Change if needed)
       TZ: Asia/Shanghai
@@ -116,7 +116,7 @@ services:
   #收集业务数据 - Collect business data
   filebeat:
     image: elastic/filebeat:8.12.2
-    container_name: gozero_filebeat
+    container_name: looklook_filebeat
     environment:
       # 时区上海 - Time zone Shanghai (Change if needed)
       TZ: Asia/Shanghai
@@ -138,7 +138,7 @@ services:
   #消息队列 - Message queue
   kafka:
     image: apache/kafka:3.9.0
-    container_name: gozero_kafka
+    container_name: looklook_kafka
     ports:
       - 9092:9092  # 容器内部之间使用的监听端口
       - 9094:9094  # 容器外部访问监听端口
@@ -166,7 +166,7 @@ services:
   #asynqmon asynq延迟队列、定时队列的webui - Asynqmon asynq delay queue, timing queue's webUI
   asynqmon:
     image: hibiken/asynqmon:latest
-    container_name: gozero_asynqmon
+    container_name: looklook_asynqmon
     ports:
       - 8980:8080
     command:
@@ -180,7 +180,7 @@ services:
 
   mysql:
     image: mysql/mysql-server:8.0.28
-    container_name: gozero_mysql
+    container_name: looklook_mysql
     environment:
       # 时区上海 - Time zone Shanghai (Change if needed)
       TZ: Asia/Shanghai
@@ -208,7 +208,7 @@ services:
   #redis容器 - Redis container
   redis:
     image: redis:6.2.5
-    container_name: gozero_redis
+    container_name: looklook_redis
     ports:
       - 36379:6379
     environment:
